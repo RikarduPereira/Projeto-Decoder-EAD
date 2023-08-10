@@ -5,6 +5,8 @@ D:\OneDrive\Documents\Projetos\projetoEAD\authuser\src\main\java\com\ead\authuse
 D:\OneDrive\Documents\Projetos\projetoEAD\authuser\src\main\java\com\ead\authuser\models\UserModel.java
 D:\OneDrive\Documents\Projetos\projetoEAD\authuser\src\main\java\com\ead\authuser\services\impl\UserServiceImpl.java
 D:\OneDrive\Documents\Projetos\projetoEAD\authuser\src\main\java\com\ead\authuser\AuthuserApplication.java
+D:\OneDrive\Documents\Projetos\projetoEAD\authuser\src\main\java\com\ead\authuser\validation\UsernameConstraint.java
+D:\OneDrive\Documents\Projetos\projetoEAD\authuser\src\main\java\com\ead\authuser\validation\UsernameConstraintImpl.java
 D:\OneDrive\Documents\Projetos\projetoEAD\authuser\src\main\java\com\ead\authuser\services\UserService.java
 D:\OneDrive\Documents\Projetos\projetoEAD\authuser\src\main\java\com\ead\authuser\controllers\AuthenticationController.java
 D:\OneDrive\Documents\Projetos\projetoEAD\authuser\src\main\java\com\ead\authuser\repositories\UserRepository.java
