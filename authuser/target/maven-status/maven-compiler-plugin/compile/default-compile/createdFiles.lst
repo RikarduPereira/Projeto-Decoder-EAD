@@ -1,3 +1,4 @@
+com\ead\authuser\configs\ResolverConfig.class
 com\ead\authuser\repositories\UserRepository.class
 com\ead\authuser\validation\UsernameConstraint.class
 com\ead\authuser\dtos\UserDto.class
@@ -8,7 +9,9 @@ com\ead\authuser\dtos\UserDto$UserView$UserPut.class
 com\ead\authuser\enums\UserStatus.class
 com\ead\authuser\enums\UserType.class
 com\ead\authuser\models\UserModel.class
+com\ead\authuser\specifications\SpecificationTemplate$UserSpec.class
 com\ead\authuser\controllers\UserController.class
+com\ead\authuser\specifications\SpecificationTemplate.class
 com\ead\authuser\validation\UsernameConstraintImpl.class
 com\ead\authuser\dtos\UserDto$UserView$PasswordPut.class
 com\ead\authuser\dtos\UserDto$UserView$RegistrationPost.class

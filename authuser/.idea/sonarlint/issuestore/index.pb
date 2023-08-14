@@ -1,7 +1,5 @@
 
 d
-4src/main/java/com/ead/authuser/models/UserModel.java,9\a\9a88fb3558e436664bd01145b811564ddf26664f
-d
 4src/main/java/com/ead/authuser/enums/UserStatus.java,4\f\4f4cc6dc4b128e0d771a6688d3f3ec0705a4a8bb
 b
 2src/main/java/com/ead/authuser/enums/UserType.java,a\8\a8e5bdd174723495a550be044076ba6968d6a145
@@ -13,17 +11,21 @@ G.idea/sonarlint/issuestore/4/f/4f4cc6dc4b128e0d771a6688d3f3ec0705a4a8bb,b\4\b4
 Q.idea/sonarlint/securityhotspotstore/a/8/a8e5bdd174723495a550be044076ba6968d6a145,c\a\caeb0ab502d874156019862f89656f20a965ba88
 w
 G.idea/sonarlint/issuestore/a/8/a8e5bdd174723495a550be044076ba6968d6a145,8\3\8317d1003a9b9f846ea540f490a9d4198d6ebc5d
-Å
-Q.idea/sonarlint/securityhotspotstore/9/a/9a88fb3558e436664bd01145b811564ddf26664f,c\5\c5d5d0ff8b1f1fdb712cc38735510f31da8cd316
-Å
-Q.idea/sonarlint/securityhotspotstore/7/6/766091cdec9def69425ad970a9da3759c58962e5,4\d\4d1cea37330e0f75bb4b577cc206fc78b16504d7
-w
-G.idea/sonarlint/issuestore/7/6/766091cdec9def69425ad970a9da3759c58962e5,8\f\8f87e9eca0bc768253dab0710de2aa6ead0c3ee0
-w
-G.idea/sonarlint/issuestore/9/a/9a88fb3558e436664bd01145b811564ddf26664f,8\7\876f6c01b7369c79da4744b454ada953222626bb
 x
 Hsrc/main/java/com/ead/authuser/controllers/AuthenticationController.java,c\4\c41e4991ef4063db50e1cb6dd6028d5629a32eab
 `
 0src/main/java/com/ead/authuser/dtos/UserDto.java,8\2\8243cda05c392dc8bc5502925dccccda44092d6f
 q
 Asrc/main/java/com/ead/authuser/validation/UsernameConstraint.java,c\9\c95aeb808cb138f4eed352376bfb7aeda1fa6c26
+u
+Esrc/main/java/com/ead/authuser/validation/UsernameConstraintImpl.java,b\e\bee825a0fc0d0f1b37106c764e9c87046fb9f189
+S
+#.idea/sonarlint/issuestore/index.pb,9\f\9fe84ebb15faf917b7def6236dba604453cc61e0
+]
+-.idea/sonarlint/securityhotspotstore/index.pb,8\8\88a9255124c95bdc913197c120a8d560edc59c8e
+j
+:src/main/java/com/ead/authuser/configs/ResolverConfig.java,2\1\21389a30b3541d30337efd4153c2d0c1d3a84676
+x
+Hsrc/main/java/com/ead/authuser/specifications/SpecificationTemplate.java,5\c\5c7a64cc1aa3e3b11a5d851ddd154bf48f812865
+o
+?src/main/java/com/ead/authuser/repositories/UserRepository.java,7\6\766091cdec9def69425ad970a9da3759c58962e5
