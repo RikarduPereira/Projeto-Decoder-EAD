@@ -29,3 +29,15 @@ j
 -.idea/sonarlint/securityhotspotstore/index.pb,8\8\88a9255124c95bdc913197c120a8d560edc59c8e
 x
 Hsrc/main/java/com/ead/authuser/specifications/SpecificationTemplate.java,5\c\5c7a64cc1aa3e3b11a5d851ddd154bf48f812865
+d
+4src/main/java/com/ead/authuser/models/UserModel.java,9\a\9a88fb3558e436664bd01145b811564ddf26664f
+g
+7src/main/java/com/ead/authuser/AuthuserApplication.java,c\f\cfe0bd30f94195267c36293b65858fc8752f8d79
+n
+>src/main/java/com/ead/authuser/controllers/UserController.java,c\b\cb4bfdeff64d8df54c67281ff5331f110a47c189
+7
+pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
+h
+8src/main/java/com/ead/authuser/services/UserService.java,6\4\64e312a64425e9636be3496600972668d9691db6
+q
+Asrc/main/java/com/ead/authuser/services/impl/UserServiceImpl.java,8\7\871e9d1a05c61770ab4d5909f15e7cca5fc75efc
