@@ -41,3 +41,6 @@ q
 Asrc/main/java/com/ead/authuser/services/impl/UserServiceImpl.java,8\7\871e9d1a05c61770ab4d5909f15e7cca5fc75efc
 g
 7src/main/java/com/ead/authuser/AuthuserApplication.java,c\f\cfe0bd30f94195267c36293b65858fc8752f8d79
+:
+
+.gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
