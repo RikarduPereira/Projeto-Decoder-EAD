@@ -6,6 +6,9 @@ import com.ead.course.repositories.LessonRepository;
 import com.ead.course.repositories.ModuleRespository;
 import com.ead.course.services.ModulerService;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -51,5 +54,10 @@ public class ModulerServiceImpl implements ModulerService {
     @Override
     public Optional<ModuleModel> findById(UUID moduleId) {
         return moduleRespository.findById(moduleId);
+    }
+
+    @Override
+    public Page<ModuleModel> findAllByCourse(Specification<ModuleModel> spec, Pageable pageable) {
+        return moduleRespository.findAll(spec, pageable);
     }
 }
