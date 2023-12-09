@@ -44,3 +44,11 @@ g
 :
 
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
+j
+:src/main/java/com/ead/authuser/models/UserCourseModel.java,f\2\f2d8af8221cb8a7a66c153953bb287242f0b04a7
+u
+Esrc/main/java/com/ead/authuser/repositories/UserCourseRepository.java,3\2\3274dad4edb26ef9848e3cbbd0535fefcd3b7bca
+n
+>src/main/java/com/ead/authuser/services/UserCourseService.java,7\0\700481f3e9b75fb29284d14a6f5e29d753f5e013
+w
+Gsrc/main/java/com/ead/authuser/services/impl/UserCourseServiceImpl.java,d\d\dd6aabfa6e8ae493c31d420fc535bfc6985c042c
