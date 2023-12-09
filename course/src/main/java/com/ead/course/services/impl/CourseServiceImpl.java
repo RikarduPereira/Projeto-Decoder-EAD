@@ -7,12 +7,12 @@ import com.ead.course.repositories.CourserRepository;
 import com.ead.course.repositories.LessonRepository;
 import com.ead.course.repositories.ModuleRespository;
 import com.ead.course.services.CourseService;
-import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -34,7 +34,7 @@ public class CourseServiceImpl implements CourseService {
     @Transactional
     @Override
     public void delete(CourseModel courseModel) {
-        List<ModuleModel> moduleModelList = moduleRespository.findAllModulesIntoCourse(courseModel.getCourserId());
+        List<ModuleModel> moduleModelList = moduleRespository.findAllLModulesIntoCourse(courseModel.getCourseId());
         if (!moduleModelList.isEmpty()) {
             for (ModuleModel model : moduleModelList) {
                 List<LessonModel> lessonModelList = lessonRepository.findAllLessonsIntoModule(model.getModuleId());
