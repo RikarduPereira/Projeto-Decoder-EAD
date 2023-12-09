@@ -15,5 +15,8 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         jdbc:
           lob.non-contextual-creation: true
+logging:
+  level:
+    com.ead: TRACE
 
 
