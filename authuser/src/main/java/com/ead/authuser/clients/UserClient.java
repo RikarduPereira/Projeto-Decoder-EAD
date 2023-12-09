@@ -37,5 +37,7 @@ public class UserClient {
             log.error("Error request {}", e);
         }
         log.info("Ending Request / courses userId {} ", userId);
+
+        return null;
     }
 }
