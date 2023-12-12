@@ -22,7 +22,7 @@ import java.util.UUID;
 
 @Log4j2
 @Component
-public class CourseClient {
+public class AuthUserClient {
 
     private final RestTemplate restTemplate;
 
@@ -31,7 +31,7 @@ public class CourseClient {
     @Value("${ead.api.url.authuser}")
     String REQUEST_URL_AUTHUSER;
 
-    public CourseClient(RestTemplate restTemplate, UtilsService utilsService) {
+    public AuthUserClient(RestTemplate restTemplate, UtilsService utilsService) {
         this.restTemplate = restTemplate;
         this.utilsService = utilsService;
     }
@@ -54,6 +54,11 @@ public class CourseClient {
         log.info("Ending Request / users courseId {} ", courseId);
 
         return new PageImpl<>(searchResult);
+    }
+
+    public ResponseEntity<UserDto> getOneUserById(UUID userId) {
+        String url = REQUEST_URL_AUTHUSER + "/users/" + userId;
+        return restTemplate.exchange(url, HttpMethod.GET, null, UserDto.class);
     }
 
 
