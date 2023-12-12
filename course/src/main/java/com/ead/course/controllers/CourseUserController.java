@@ -28,7 +28,7 @@ import java.util.UUID;
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class CourseUserController {
     private final AuthUserClient authUserClient;
-    private CourseService courseService;
+    private final CourseService courseService;
     private final CourserUserService courserUserService;
 
     public CourseUserController(AuthUserClient authUserClient, CourseService courseService, CourserUserService courserUserService) {
