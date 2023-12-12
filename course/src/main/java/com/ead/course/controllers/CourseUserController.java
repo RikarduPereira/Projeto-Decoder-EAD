@@ -1,5 +1,6 @@
 package com.ead.course.controllers;
 
+import com.ead.course.clients.CourseClient;
 import com.ead.course.dtos.UserDto;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
@@ -20,10 +21,16 @@ import java.util.UUID;
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class CourseUserController {
 
+    private final CourseClient courseClient;
+
+    public CourseUserController(CourseClient courseClient) {
+        this.courseClient = courseClient;
+    }
+
     @GetMapping("/courses/{courseId}/users")
     public ResponseEntity<Page<UserDto>> getAllUsersByCourse(@PageableDefault(page = 0, size = 10, sort = "userId",
             direction = Sort.Direction.ASC) Pageable pageable, @PathVariable(value = "courseId") UUID courseId) {
-        return ResponseEntity.status(HttpStatus.OK).body();
+        return ResponseEntity.status(HttpStatus.OK).body(courseClient.getAllUsersByCourse(courseId, pageable));
 
 
     }
