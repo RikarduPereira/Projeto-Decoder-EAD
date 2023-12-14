@@ -23,4 +23,4 @@ logging:
 ead:
   api:
     url:
-      authuser: 'http://localhost:8082'
+      course: 'http://localhost:8082'
