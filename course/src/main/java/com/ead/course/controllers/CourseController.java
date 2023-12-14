@@ -4,6 +4,7 @@ import com.ead.course.dtos.CourseDto;
 import com.ead.course.models.CourseModel;
 import com.ead.course.services.CourseService;
 import com.ead.course.specifications.SpecificationTemplate;
+import com.ead.course.validation.CourseValidator;
 import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.BeanUtils;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -28,12 +30,20 @@ public class CourseController {
 
     private final CourseService courseService;
 
-    public CourseController(CourseService courseService) {
+    private final CourseValidator courseValidator;
+
+    public CourseController(CourseService courseService, CourseValidator courseValidator) {
         this.courseService = courseService;
+        this.courseValidator = courseValidator;
     }
 
     @PostMapping
-    public ResponseEntity<Object> saveCouse(@RequestBody @Valid CourseDto courseDto) {
+    public ResponseEntity<Object> saveCouse(@RequestBody CourseDto courseDto, Errors errors) {
+        log.debug("POST saveCourse courseDto recieved {} ", courseDto.toString());
+        courseValidator.validate(courseDto, errors);
+        if (errors.hasErrors()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.getAllErrors());
+        }
         var courseModel = new CourseModel();
         BeanUtils.copyProperties(courseDto, courseModel);
         courseModel.setCreationDate(LocalDateTime.now(ZoneId.of("UTC")));
@@ -46,6 +56,7 @@ public class CourseController {
 
     @DeleteMapping("/{courseId}")
     public ResponseEntity<Object> deleteCourse(@PathVariable(value = "courseId") UUID courseId) {
+        log.debug("");
         Optional<CourseModel> courseModelOptional = courseService.findById(courseId);
         if (!courseModelOptional.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Course Not Found");
