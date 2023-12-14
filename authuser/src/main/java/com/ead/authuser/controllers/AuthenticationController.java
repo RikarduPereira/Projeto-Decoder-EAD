@@ -6,7 +6,7 @@ import com.ead.authuser.enums.UserType;
 import com.ead.authuser.models.UserModel;
 import com.ead.authuser.services.UserService;
 import com.fasterxml.jackson.annotation.JsonView;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
-@Slf4j
+@Log4j2
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/auth")

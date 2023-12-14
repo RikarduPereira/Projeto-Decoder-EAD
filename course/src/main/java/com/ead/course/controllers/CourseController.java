@@ -5,6 +5,7 @@ import com.ead.course.models.CourseModel;
 import com.ead.course.services.CourseService;
 import com.ead.course.specifications.SpecificationTemplate;
 import jakarta.validation.Valid;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,6 +20,7 @@ import java.time.ZoneId;
 import java.util.Optional;
 import java.util.UUID;
 
+@Log4j2
 @RestController
 @RequestMapping("/courses")
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -36,7 +38,10 @@ public class CourseController {
         BeanUtils.copyProperties(courseDto, courseModel);
         courseModel.setCreationDate(LocalDateTime.now(ZoneId.of("UTC")));
         courseModel.setLastUpdateDate(LocalDateTime.now(ZoneId.of("UTC")));
-        return ResponseEntity.status(HttpStatus.CREATED).body(courseService.save(courseModel));
+        courseService.save(courseModel);
+        log.debug("POST saveCourse courseModel saved {} ", courseModel.toString());
+        log.info("Course saved successfully courseId {} ", courseModel.getCourseId());
+        return ResponseEntity.status(HttpStatus.CREATED).body(courseModel);
     }
 
     @DeleteMapping("/{courseId}")

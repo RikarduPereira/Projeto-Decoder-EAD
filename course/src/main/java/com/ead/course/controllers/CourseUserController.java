@@ -68,7 +68,7 @@ public class CourseUserController {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User Not Found");
             }
         }
-        CourserUserModel courserUserModel = courserUserService.save(courseModelOptional.get().convertToCourseUserModel(subscriptionDto.getUserId()));
+        CourserUserModel courserUserModel = courserUserService.saveAndSendSubscriptionUserInCourse(courseModelOptional.get().convertToCourseUserModel(subscriptionDto.getUserId()));
 
         return ResponseEntity.status(HttpStatus.CREATED).body(courserUserModel);
 
