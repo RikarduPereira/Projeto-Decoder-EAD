@@ -7,4 +7,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import java.util.UUID;
 
 public interface CourserRepository extends JpaRepository<CourseModel, UUID>, JpaSpecificationExecutor<CourseModel> {
+
 }

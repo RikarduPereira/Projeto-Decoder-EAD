@@ -1,8 +1,10 @@
 package com.ead.course.services.impl;
 
 import com.ead.course.models.CourseModel;
+import com.ead.course.models.CourserUserModel;
 import com.ead.course.models.LessonModel;
 import com.ead.course.models.ModuleModel;
+import com.ead.course.repositories.CourseUserRepository;
 import com.ead.course.repositories.CourserRepository;
 import com.ead.course.repositories.LessonRepository;
 import com.ead.course.repositories.ModuleRespository;
@@ -22,12 +24,13 @@ public class CourseServiceImpl implements CourseService {
 
     private final CourserRepository courserRepository;
     private final ModuleRespository moduleRespository;
-
+    private final CourseUserRepository courseUserRepository;
     private final LessonRepository lessonRepository;
 
-    public CourseServiceImpl(CourserRepository courserRepository, ModuleRespository moduleRespository, LessonRepository lessonRepository) {
+    public CourseServiceImpl(CourserRepository courserRepository, ModuleRespository moduleRespository, CourseUserRepository courseUserRepository, LessonRepository lessonRepository) {
         this.courserRepository = courserRepository;
         this.moduleRespository = moduleRespository;
+        this.courseUserRepository = courseUserRepository;
         this.lessonRepository = lessonRepository;
     }
 
@@ -43,6 +46,10 @@ public class CourseServiceImpl implements CourseService {
                 }
             }
             moduleRespository.deleteAll(moduleModelList);
+        }
+        List<CourserUserModel> courserUserModelList = courseUserRepository.findAllCourseUserIntoCourse(courseModel.getCourseId());
+        if (!courserUserModelList.isEmpty()) {
+            courseUserRepository.deleteAll(courserUserModelList);
         }
         courserRepository.delete(courseModel);
     }
