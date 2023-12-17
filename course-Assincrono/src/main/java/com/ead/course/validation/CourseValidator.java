@@ -1,9 +1,7 @@
 package com.ead.course.validation;
 
 import com.ead.course.dtos.CourseDto;
-import com.ead.course.dtos.UserDto;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -35,16 +33,16 @@ public class CourseValidator implements Validator {
     }
 
     private void validateUserInstructor(UUID userInstructor, Errors errors) {
-        ResponseEntity<UserDto> responseUserInstructor;
-//        try {
-//            responseUserInstructor = authUserClient.getOneUserById(userInstructor);
-//            if (UserType.STUDENT.equals(Objects.requireNonNull(responseUserInstructor.getBody()).getUserType())) {
-//                errors.rejectValue("userInstructor", "userInstructorError", "User must be INSTRUCTOR or ADMIN.");
-//            }
-//        } catch (HttpStatusCodeException e) {
-//            if (HttpStatus.NOT_FOUND.equals(e.getStatusCode())) {
-//                errors.rejectValue("userInstructor", "userInstructorError", "Instructor not found.");
-//            }
-//        }
+//        ResponseEntity<UserDto> responseUserInstructor;
+////        try {
+////            responseUserInstructor = authUserClient.getOneUserById(userInstructor);
+////            if (UserType.STUDENT.equals(Objects.requireNonNull(responseUserInstructor.getBody()).getUserType())) {
+////                errors.rejectValue("userInstructor", "userInstructorError", "User must be INSTRUCTOR or ADMIN.");
+////            }
+////        } catch (HttpStatusCodeException e) {
+////            if (HttpStatus.NOT_FOUND.equals(e.getStatusCode())) {
+////                errors.rejectValue("userInstructor", "userInstructorError", "Instructor not found.");
+////            }
+////        }
     }
 }
