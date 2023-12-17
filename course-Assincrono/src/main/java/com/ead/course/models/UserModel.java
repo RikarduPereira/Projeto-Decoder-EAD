@@ -1,15 +1,14 @@
 package com.ead.course.models;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -20,7 +19,7 @@ import java.util.UUID;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserModel implements Serializable {
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     private UUID userId;
     @Column(nullable = false, unique = true, length = 50)
@@ -35,4 +34,7 @@ public class UserModel implements Serializable {
     private String cpf;
     @Column
     private String imageUrl;
+    @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Set<CourseModel> courses;
 }
