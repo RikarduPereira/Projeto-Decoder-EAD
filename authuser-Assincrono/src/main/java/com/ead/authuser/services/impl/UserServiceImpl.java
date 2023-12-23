@@ -1,7 +1,9 @@
 package com.ead.authuser.services.impl;
 
 import com.ead.authuser.clients.CourseClient;
+import com.ead.authuser.enums.ActionType;
 import com.ead.authuser.models.UserModel;
+import com.ead.authuser.publishers.UserEventPublisher;
 import com.ead.authuser.repositories.UserRepository;
 import com.ead.authuser.services.UserService;
 import org.springframework.data.domain.Page;
@@ -21,9 +23,12 @@ public class UserServiceImpl implements UserService {
 
     private final CourseClient courseClient;
 
-    public UserServiceImpl(UserRepository userRepository, CourseClient courseClient) {
+    private final UserEventPublisher userEventPublisher;
+
+    public UserServiceImpl(UserRepository userRepository, CourseClient courseClient, UserEventPublisher userEventPublisher) {
         this.userRepository = userRepository;
         this.courseClient = courseClient;
+        this.userEventPublisher = userEventPublisher;
     }
 
 
@@ -44,8 +49,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void save(UserModel userModel) {
-        userRepository.save(userModel);
+    public UserModel save(UserModel userModel) {
+        return userRepository.save(userModel);
     }
 
     @Override
@@ -61,6 +66,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public Page<UserModel> findAll(Specification<UserModel> spec, Pageable pageable) {
         return userRepository.findAll(spec, pageable);
+    }
+
+    @Transactional
+    @Override
+    public UserModel saveUser(UserModel userModel) {
+        userModel = save(userModel);
+        userEventPublisher.publisherUserEvent(userModel.convertToUserEventDto(), ActionType.CREATE);
+        return userModel;
     }
 
 
