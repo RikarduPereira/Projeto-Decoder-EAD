@@ -64,5 +64,16 @@ public class CourseServiceImpl implements CourseService {
         return courserRepository.findAll(spec, pageable);
     }
 
+    @Override
+    public boolean existsByCourseAndUser(UUID courseId, UUID userId) {
+        return courserRepository.existsByCourseAndUser(courseId, userId);
+    }
+
+    @Transactional
+    @Override
+    public void saveSubscriptionUserInCourse(UUID courseId, UUID userId) {
+        courserRepository.saveCourseUser(courseId, userId);
+    }
+
 
 }
