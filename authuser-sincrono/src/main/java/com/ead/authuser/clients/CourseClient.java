@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -36,7 +37,7 @@ public class CourseClient {
         this.utilsService = utilsService;
     }
 
-    @Retry(name = "retryInstance")
+    @Retry(name = "retryInstance", fallbackMethod = "retryfallback")
     public Page<CourseDto> getAllCoursesByUser(UUID userId, Pageable pageable) {
         List<CourseDto> searchResult = null;
         String url = REQUEST_URL_COURSE + utilsService.createUrl(userId, pageable);
@@ -60,5 +61,11 @@ public class CourseClient {
     public void deleteUserCourseInCourse(UUID userId) {
         String url = REQUEST_URL_COURSE + "/course/users/" + userId;
         restTemplate.exchange(url, HttpMethod.DELETE, null, String.class);
+    }
+
+    public Page<CourseDto> retryfallback(UUID userId, Pageable pageable, Throwable throwable) {
+        log.error("Inside retry retryfallback, case - {}", throwable.toString());
+        List<CourseDto> searchResult = new ArrayList<>();
+        return new PageImpl<>(searchResult);
     }
 }
