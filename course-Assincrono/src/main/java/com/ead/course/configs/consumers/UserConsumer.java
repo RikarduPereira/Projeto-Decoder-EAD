@@ -28,8 +28,12 @@ public class UserConsumer {
         var userModel = userEventDto.converToUserModel();
 
         switch (ActionType.valueOf(userEventDto.getActionType())) {
-            case CREATE -> {
+            case CREATE, UPDATE -> {
                 userService.save(userModel);
+                break;
+            }
+            case DELETE -> {
+                userService.delete(userEventDto.getUserId());
                 break;
             }
         }
