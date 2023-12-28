@@ -6,6 +6,12 @@ server:
 spring:
   application:
     name: ead-course-service
+  cloud:
+    config:
+      discovery:
+        serviceId: ead-config-server
+      username: configserver
+      password: 'ead123cs'
   datasource:
     url: jdbc:postgresql://localhost:5432/ead-course
     username: postgres
