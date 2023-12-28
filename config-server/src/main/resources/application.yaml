@@ -4,9 +4,19 @@ server:
 spring:
   application:
     name: ead-config-server
-
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/MichelliBrito/ead-config-server-repo
+          default-label: main
+          username: ricardo
+          password: ****************
 
 ead:
+  configServer:
+    username: configserver
+    password: 'ead123cs'
   serviceRegistry:
     username: serviceregistry
     password: 'ead123sr'
@@ -14,6 +24,8 @@ ead:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://${ead.serviceRegistry.username}:${ead.serviceRegistry.password}@localhost:8761/eureka
+      defaultZone: 'http://${ead.serviceRegistry.username}:${ead.serviceRegistry.password}@localhost:8761/eureka'
   instance:
     hostname: localhost
+
+

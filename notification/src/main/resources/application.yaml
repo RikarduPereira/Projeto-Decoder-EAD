@@ -13,7 +13,7 @@ spring:
       discovery:
         serviceId: ead-config-server
   datasource:
-    url:  jdbc:postgresql://localhost:5432/ead-notification-v2
+    url: jdbc:postgresql://localhost:5432/ead-notification-v2
     username: postgres
     password: banco123
   jpa:
@@ -48,7 +48,9 @@ ead:
         name: ead.notificationcommand.ms.notification
     key:
       notificationCommandKey: ms.notification
-
+  serviceRegistry:
+    username: serviceregistry
+    password: 'ead123sr'
 
 management:
   endpoints:
@@ -58,9 +60,12 @@ management:
           - refresh
           - health
 
+
+
+
 eureka:
   client:
     serviceUrl:
-      defaultZone: 'http://localhost:8761/eureka'
+      defaultZone: 'http://${ead.serviceRegistry.username}:${ead.serviceRegistry.password}@localhost:8761/eureka'
   instance:
     hostname: localhost
