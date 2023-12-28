@@ -3,7 +3,6 @@ package com.ead.course.controllers;
 import com.ead.course.dtos.ModuleDto;
 import com.ead.course.models.CourseModel;
 import com.ead.course.models.ModuleModel;
-import com.ead.course.repositories.ModuleRespository;
 import com.ead.course.services.CourseService;
 import com.ead.course.services.ModulerService;
 import com.ead.course.specifications.SpecificationTemplate;
@@ -15,6 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -29,15 +29,15 @@ public class ModuleController {
     private final ModulerService modulerService;
 
     private final CourseService courseService;
-    private final ModuleRespository moduleRespository;
 
-    public ModuleController(ModulerService modulerService, CourseService courseService,
-                            ModuleRespository moduleRespository) {
+
+    public ModuleController(ModulerService modulerService, CourseService courseService) {
         this.modulerService = modulerService;
         this.courseService = courseService;
-        this.moduleRespository = moduleRespository;
+
     }
 
+    @PreAuthorize("hasAnyRole('INSTRUCTOR')")
     @PostMapping("/courses/{courseId}/modules")
     public ResponseEntity<Object> saveModule(@PathVariable(value = "courseId") UUID courseId,
                                              @RequestBody @Valid ModuleDto moduleDto) {
@@ -55,6 +55,7 @@ public class ModuleController {
 
     }
 
+    @PreAuthorize("hasAnyRole('INSTRUCTOR')")
     @DeleteMapping("/courses/{courseId}/modules/{moduleId}")
     public ResponseEntity<Object> deleteCourse(@PathVariable(value = "courseId") UUID courseId,
                                                @PathVariable(value = "moduleId") UUID moduleId) {
@@ -68,6 +69,7 @@ public class ModuleController {
 
     }
 
+    @PreAuthorize("hasAnyRole('INSTRUCTOR')")
     @PutMapping("/courses/{courseId}/modules/{moduleId}")
     public ResponseEntity<Object> updateCourse(@PathVariable(value = "courseId") UUID courseId,
                                                @PathVariable(value = "moduleId") UUID moduleId,
@@ -83,6 +85,7 @@ public class ModuleController {
         return ResponseEntity.status(HttpStatus.OK).body(modulerService.save(moduleModel));
     }
 
+    @PreAuthorize("hasAnyRole('STUDENT')")
     @GetMapping("/courses/{courseId}/modules/")
     ResponseEntity<Page<ModuleModel>> getAllModules(@PathVariable(value = "courseId") UUID courseId,
                                                     SpecificationTemplate.ModuleSpec spec,
@@ -91,6 +94,7 @@ public class ModuleController {
         return ResponseEntity.status(HttpStatus.OK).body(modulerService.findAllByCourse(SpecificationTemplate.moduleCourseId(courseId).and(spec), pageable));
     }
 
+    @PreAuthorize("hasAnyRole('STUDENT')")
     @GetMapping("/courses/{courseId}/modules/{moduleId}")
     ResponseEntity<Object> getOneModule(@PathVariable(value = "courseId") UUID courseId,
                                         @PathVariable(value = "moduleId") UUID moduleId) {
