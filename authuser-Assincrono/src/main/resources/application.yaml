@@ -39,6 +39,11 @@ ead:
     exchange:
       userEvent: ead.userevent
 
+  auth:
+    jwtSecret: aW?hd1b2WeSLmr=R3!ppokpK/pX53eJT82?WpsHTtFU?N9=xySyo9Py?XOJH8hDa
+    jwtEpirationMs: 14400000
+
+
 eureka:
   client:
     serviceUrl:
