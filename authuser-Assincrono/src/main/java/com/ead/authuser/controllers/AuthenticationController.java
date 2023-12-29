@@ -4,9 +4,12 @@ import com.ead.authuser.configs.security.JwtProvider;
 import com.ead.authuser.dtos.JwtDto;
 import com.ead.authuser.dtos.LoginDto;
 import com.ead.authuser.dtos.UserDto;
+import com.ead.authuser.enums.RoleType;
 import com.ead.authuser.enums.UserStatus;
 import com.ead.authuser.enums.UserType;
+import com.ead.authuser.models.RoleModel;
 import com.ead.authuser.models.UserModel;
+import com.ead.authuser.services.RoleService;
 import com.ead.authuser.services.UserService;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.validation.Valid;
@@ -18,6 +21,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,11 +37,15 @@ public class AuthenticationController {
     private final JwtProvider jwtProvider;
     private final UserService userService;
     private final AuthenticationManager authenticationManager;
+    private final PasswordEncoder passwordEncoder;
+    private final RoleService roleService;
 
-    public AuthenticationController(JwtProvider jwtProvider, UserService userService, AuthenticationManager authenticationManager) {
+    public AuthenticationController(JwtProvider jwtProvider, UserService userService, AuthenticationManager authenticationManager, PasswordEncoder passwordEncoder, RoleService roleService) {
         this.jwtProvider = jwtProvider;
         this.userService = userService;
         this.authenticationManager = authenticationManager;
+        this.passwordEncoder = passwordEncoder;
+        this.roleService = roleService;
     }
 
     @PostMapping("/signup")
@@ -49,12 +57,16 @@ public class AuthenticationController {
         if (userService.existsByEmail(userDto.getEmail())) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Error: Email is Already Taken!");
         }
+        RoleModel roleModel = roleService.findByRoleName(RoleType.ROLE_STUDENT)
+                .orElseThrow(() -> new RuntimeException("Error: Role is Not Found."));
+        userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
         var userModel = new UserModel();
         BeanUtils.copyProperties(userDto, userModel);
         userModel.setUserStatus(UserStatus.ACTIVE);
         userModel.setUserType(UserType.STUDENT);
         userModel.setCreationDate(LocalDateTime.now(ZoneId.of("UTC")));
         userModel.setLastUpdateDate(LocalDateTime.now(ZoneId.of("UTC")));
+        userModel.getRoles().add(roleModel);
         userService.saveUser(userModel);
         log.info("User register succesfuly");
         return ResponseEntity.status(HttpStatus.CREATED).body(userModel);

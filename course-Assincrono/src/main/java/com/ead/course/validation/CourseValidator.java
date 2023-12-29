@@ -1,10 +1,12 @@
 package com.ead.course.validation;
 
+import com.ead.course.configs.security.AuthenticationCurrentUserService;
 import com.ead.course.dtos.CourseDto;
 import com.ead.course.enums.UserType;
 import com.ead.course.models.UserModel;
 import com.ead.course.services.UserService;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -18,10 +20,13 @@ public class CourseValidator implements Validator {
     private final Validator validator;
     private final UserService userService;
 
+    private final AuthenticationCurrentUserService authenticationCurrentUserService;
 
-    public CourseValidator(@Qualifier("defaultValidator") Validator validator, UserService userService) {
+
+    public CourseValidator(@Qualifier("defaultValidator") Validator validator, UserService userService, AuthenticationCurrentUserService authenticationCurrentUserService) {
         this.validator = validator;
         this.userService = userService;
+        this.authenticationCurrentUserService = authenticationCurrentUserService;
     }
 
     @Override
@@ -39,13 +44,17 @@ public class CourseValidator implements Validator {
     }
 
     private void validateUserInstructor(UUID userInstructor, Errors errors) {
-        Optional<UserModel> userModelOptional = userService.findById(userInstructor);
-        if (!userModelOptional.isPresent()) {
-            errors.rejectValue("userInstructor", "userInstructorError", "Instructor not found.");
+        UUID currentUserId = authenticationCurrentUserService.getCurrentUser().getUserId();
+        if (currentUserId.equals(userInstructor)) {
+            Optional<UserModel> userModelOptional = userService.findById(userInstructor);
+            if (!userModelOptional.isPresent()) {
+                errors.rejectValue("userInstructor", "userInstructorError", "Instructor not found.");
+            }
+            if (UserType.STUDENT.toString().equals(userModelOptional.get().getUserType())) {
+                errors.rejectValue("userInstructor", "userInstructorError", "User must be INSTRUCTOR or ADMIN.");
+            }
+        } else {
+            throw new AccessDeniedException("Forbidden");
         }
-        if (UserType.STUDENT.toString().equals(userModelOptional.get().getUserType())) {
-            errors.rejectValue("userInstructor", "userInstructorError", "User must be INSTRUCTOR or ADMIN.");
-        }
-
     }
 }
